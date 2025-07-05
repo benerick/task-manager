@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent, useState } from 'react';
+import { validateLoginForm } from "@/utils/formValidation";
 
 interface Props {
     error: string | null;
@@ -23,7 +24,6 @@ const Input = styled.input`
   border-radius: 6px;
   font-size: 1rem;
 `
-
 // Boton
 const Button = styled.button`
   background-color: #4dc1ea;
@@ -39,7 +39,6 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 `
-
 // Mensaje de error
 const ErrorText = styled.p`
   color: red;
@@ -47,11 +46,21 @@ const ErrorText = styled.p`
 `
 
 export default function LoginForm({ error, loading, onSubmit }: Props) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [localError, setLocalError] = useState<string | null>(null);
 
     const handleSubmit = (evt: React.FormEvent) => {
         evt.preventDefault();
+
+        const validationError = validateLoginForm(email, password);
+
+        if (validationError) {
+            setLocalError(validationError);
+            return;
+        }
+
+        setLocalError(null);
         onSubmit(email, password);
     }
 
@@ -73,6 +82,7 @@ export default function LoginForm({ error, loading, onSubmit }: Props) {
                 {loading ? "Entrando..." : "Entrar"}
             </Button>
             {error && <ErrorText>{error}</ErrorText>}
+            {localError && <ErrorText>{localError}</ErrorText>}
         </Form>
     )
 }

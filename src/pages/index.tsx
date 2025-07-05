@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import LoginForm from "@/components/auth/LoginForm";
 import { login, restoreSession } from "@/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { encrypt, decrypt } from "@/utils/cryptoHelper";
+import { encrypt, decrypt } from "@/utils/cryptoHelpers";
 
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { token, loading, error } = useAppSelector((state) => state.auth);
+  const { loading, error } = useAppSelector((state) => state.auth);
 
   // Verifica si hay datos de sesion en localStorage. 
   // Redirige si sesion ya existe y es valida
@@ -63,8 +63,8 @@ export default function Home() {
           <h1>Iniciar Sesión</h1>
 
           <LoginForm
-            error={null}
-            loading={false}
+            error={error}
+            loading={loading}
             onSubmit={handleLogin}
           />
         </main>
