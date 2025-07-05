@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { ChangeEvent, useState } from 'react';
 
 interface Props {
-    error: string | null,
-    loading: boolean,
-    onSubmit: (email: string, password: string) => void,
+    error: string | null;
+    loading: boolean;
+    onSubmit: (email: string, password: string) => void;
 }
 
 // Estilos

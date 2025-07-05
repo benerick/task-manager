@@ -1,11 +1,51 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 import LoginForm from "@/components/auth/LoginForm";
+import { login, restoreSession } from "@/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { encrypt, decrypt } from "@/utils/cryptoHelper";
+
+import styles from "@/styles/Home.module.css";
 
 export default function Home() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { token, loading, error } = useAppSelector((state) => state.auth);
 
-  const handleLogin = (email: string, password: string) => {
-    console.log(email, password);
+  // Verifica si hay datos de sesion en localStorage. 
+  // Redirige si sesion ya existe y es valida
+  useEffect(() => {
+    const saved = localStorage.getItem("session");
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved);
+      const token = decrypt(parsed.token);
+      const email = parsed.email;
+      dispatch(restoreSession({ token, email }));
+      router.push("/dashboard");
+    } catch {
+      localStorage.removeItem("session");
+    }
+  }, []);
+
+  const handleLogin = async (email: string, password: string) => {
+    const result = await dispatch(login({ email, password }));
+    if (login.fulfilled.match(result)) {
+      const encryptedToken = encrypt(result.payload.token);
+
+      localStorage.setItem(
+        "session",
+        JSON.stringify({
+          email: result.payload.email,
+          token: encryptedToken,
+        }),
+      );
+
+      router.push("/dashboard");
+    }
   }
 
   return (
