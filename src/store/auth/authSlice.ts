@@ -3,13 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { generateDynamicKey, simulateLatency } from "@/utils/authHelpers";
 import { config } from "@/config";
-
-interface AuthState {
-    error: string | null;
-    loading: boolean;
-    token: string | null;
-    user: string | null;
-}
+import { AuthState } from "./types";
 
 const initialState: AuthState = {
     error: null,

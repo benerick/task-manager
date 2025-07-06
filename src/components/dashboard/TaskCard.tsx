@@ -1,11 +1,12 @@
 import { CardContainer, CardTitle, CardDescription } from "./styles";
 import { CardProps } from "./types";
 
-export default function TaskCard({ title, description }: CardProps) {
+export default function TaskCard({ task }: CardProps) {
     return (
         <CardContainer>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+            {task.favorite && <span>⭐</span>}
+            <CardTitle>{task.title}</CardTitle>
+            <CardDescription>{task.description}</CardDescription>
         </CardContainer>
     );
 }

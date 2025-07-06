@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import LoginForm from "@/components/auth/LoginForm";
-import { login, restoreSession } from "@/features/auth/authSlice";
+import { login, restoreSession } from "@/store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { encrypt, decrypt } from "@/utils/cryptoHelpers";
 
