@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addTask } from "@/store/tasks/taskSlice";
-import { generateUniqueId } from "@/utils/tasksHelpers";
+import { generateUniqueId, isDuplicated } from "@/utils/tasksHelpers";
 import { Task, TaskStatus } from "@/store/tasks/types";
 import { FormContainer, Input, Button, Select, ErrorText } from "./styles";
 import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidation";
@@ -29,13 +29,7 @@ export default function TaskForm() {
         }
 
         // Validar duplicado
-        const exist = Object.values(
-            columns[status].tasks
-        ).some(
-            (task) => task.title.toLowerCase() === title.trim().toLowerCase()
-        )
-
-        if (exist) {
+        if (isDuplicated(columns, title)) {
             setError(DUPLICATED_TITLE_MESSAGE)
             return;
         }

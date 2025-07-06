@@ -14,3 +14,13 @@ export function findColumnByTaskId(taskId: string, columns: Columns): TaskStatus
     }
     return null;
 }
+
+export function isDuplicated(columns: Columns, title: string): boolean {
+    const normalizedTitle = title.trim().toLowerCase();
+
+    return Object.values(columns).some((column) =>
+        Object.values(column.tasks).some((task) =>
+            task.title.trim().toLowerCase() === normalizedTitle
+        )
+    )
+}
