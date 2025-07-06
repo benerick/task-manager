@@ -37,6 +37,11 @@ export const CardContainer = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   cursor: grab;
   user-select: none;
+  position: relative;
+`;
+
+export const DraggableContainer = styled.div`
+
 `;
 
 export const CardTitle = styled.h3`
@@ -49,6 +54,23 @@ export const CardDescription = styled.p`
     font-size: 14px;
     color: #000;
 `;
+
+export const RemoveCardButton = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background: red;
+    pointer-events: auto;
+    z-index: 10;
+`;
+
+
 
 // Form components
 export const FormContainer = styled.form`
