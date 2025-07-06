@@ -1,4 +1,5 @@
 export type TaskStatus = "pending" | "in_progress" | "completed";
+export type Columns = Record<TaskStatus, TasksPerColumn>;
 
 export interface Task {
     id: string;
@@ -9,11 +10,12 @@ export interface Task {
     status: TaskStatus;
 };
 
+
 export interface TasksPerColumn {
     name: string;
     tasks: Record<string, Task>;
 };
 
 export interface TaskState {
-    columns: Record<TaskStatus, TasksPerColumn>;
+    columns: Columns;
 };

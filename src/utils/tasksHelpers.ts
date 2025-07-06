@@ -1,3 +1,4 @@
+import { Columns, TaskStatus } from "@/store/tasks/types";
 import { createHash } from "crypto";
 
 export function generateUniqueId(user: string | null): string {
@@ -7,3 +8,9 @@ export function generateUniqueId(user: string | null): string {
     return `${user ?? "anon"}_${Date.now()}_${hash.substring(0, 8)}`;
 };
 
+export function findColumnByTaskId(taskId: string, columns: Columns): TaskStatus | null {
+    for (const [key, column] of Object.entries(columns)) {
+        if (column.tasks[taskId]) return key as TaskStatus;
+    }
+    return null;
+}
