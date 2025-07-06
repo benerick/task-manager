@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "@/hooks";
 import { decrypt } from "@/utils/cryptoHelpers";
 import TaskBoard from "@/components/dashboard/TaskBoard";
+import TaskForm from "@/components/dashboard/TaskForm";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function DashboardPage() {
     return (
         <main>
             <h1>Tareas</h1>
+            <TaskForm />
             <TaskBoard />
         </main>
     )

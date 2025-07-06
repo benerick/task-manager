@@ -9,4 +9,12 @@ module.exports = {
         "@babel/preset-env",
         "@babel/preset-typescript",
     ],
+    "plugins": [
+        [
+            "styled-components",
+            {
+                "ssr": true
+            }
+        ]
+    ]
 }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Tasks components
 export const BoardContainer = styled.div`
   display: flex;
   gap: 16px;
@@ -46,4 +47,47 @@ export const CardTitle = styled.h3`
 export const CardDescription = styled.p`
     font-size: 14px;
     color: #000;
+`;
+
+// Form components
+export const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  background: #f3f3f3;
+  padding: 1rem;
+  border-radius: 10px;
+`;
+
+export const Input = styled.input`
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+`;
+
+export const Select = styled.select`
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+`;
+
+export const Button = styled.button`
+  padding: 0.6rem;
+  font-weight: bold;
+  background: #4dc1ea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: #3aaed2;
+  }
+`;
+
+export const ErrorText = styled.p`
+  color: red;
+  font-size: 0.9rem;
 `;
