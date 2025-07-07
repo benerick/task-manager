@@ -22,6 +22,9 @@ export const taskSlice = createSlice({
     name: "tasks",
     initialState,
     reducers: {
+        setTasksState: (state, action: PayloadAction<TaskState>) => {
+            return action.payload;
+        },
         addTask: (state, action: PayloadAction<Task>) => {
             const task = action.payload;
             state.columns[task.status].tasks[task.id] = task;
@@ -77,6 +80,7 @@ export const taskSlice = createSlice({
 });
 
 export const {
+    setTasksState,
     addTask,
     deleteTask,
     editTask,
