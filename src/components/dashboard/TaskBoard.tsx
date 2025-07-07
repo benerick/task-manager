@@ -6,20 +6,14 @@ import TaskColumn from "./TaskColumn";
 import { changeTaskStatus } from "@/store/tasks/taskSlice";
 import { Task, TaskStatus } from "@/store/tasks/types";
 import { findColumnByTaskId } from "@/utils/tasksHelpers";
+import { getCachedFilteredTasks } from "@/utils/taskCache";
 
 const TaskBoard = () => {
     const dispatch = useAppDispatch();
     const { columns, searchTerm, statusFilter } = useAppSelector((state) => state.tasks);
 
-    const getFilteredTasks = (status: TaskStatus): Task[] => {
-        const tasks = Object.values(columns[status].tasks);
-        if (!searchTerm && !statusFilter) return tasks;
-        return tasks.filter((task) => {
-            const matchesSearch = task.title.toLowerCase().includes(searchTerm);
-            const matchesStatus = statusFilter === "all" || task.status === statusFilter;
-            return matchesSearch && matchesStatus;
-        });
-    };
+    const getTasksForStatus = (status: TaskStatus): Task[] =>
+        getCachedFilteredTasks(status, searchTerm, statusFilter, columns);
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
@@ -43,7 +37,7 @@ const TaskBoard = () => {
                         id={status}
                         status={status}
                         title={column.name}
-                        tasks={getFilteredTasks(status as TaskStatus)}
+                        tasks={getTasksForStatus(status as TaskStatus)}
                     />
                 ))}
             </BoardContainer>

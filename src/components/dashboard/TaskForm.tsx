@@ -1,11 +1,10 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addTask } from "@/store/tasks/taskSlice";
-import { generateUniqueId, isDuplicated } from "@/utils/tasksHelpers";
+import { generateUniqueId, isDuplicated, refreshTaskTitleCache } from "@/utils/tasksHelpers";
 import { Task, TaskStatus } from "@/store/tasks/types";
 import { FormContainer, Input, Button, Select, ErrorText } from "./styles";
 import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidation";
-import { stat } from "fs";
 
 export default function TaskForm() {
     const dispatch = useAppDispatch();

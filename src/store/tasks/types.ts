@@ -25,3 +25,10 @@ export interface TaskState {
     searchTerm: string;
     statusFilter: TaskStatus | "all";
 };
+
+export interface CacheKey {
+    status: TaskStatus;
+    searchTerm: string;
+    statusFilter: string;
+    snapshot: string;
+};
