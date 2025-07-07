@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { CardContainer, CardTitle, CardDescription, RemoveCardButton, DraggableContainer, EditCardButton } from "./styles";
+import { CardContainer, CardTitle, CardDescription, RemoveCardButton, DraggableContainer, EditCardButton, FavoriteButton } from "./styles";
 import { CardProps } from "./types";
 import { useAppDispatch } from "@/hooks";
-import { deleteTask } from "@/store/tasks/taskSlice";
+import { deleteTask, toggleFavorite } from "@/store/tasks/taskSlice";
 import EditTaskModal from "./EditTaskModal";
 
 export default function TaskCard({ task }: CardProps) {
@@ -21,7 +21,7 @@ export default function TaskCard({ task }: CardProps) {
         evt.stopPropagation();
 
         setShowModal(true);
-    }
+    };
 
     const handleDelete = (evt: React.MouseEvent) => {
         evt.stopPropagation();
@@ -31,6 +31,10 @@ export default function TaskCard({ task }: CardProps) {
 
         dispatch(deleteTask(task));
     };
+
+    const handleToggleFavorite = () => {
+        dispatch(toggleFavorite({ id: task.id, status: task.status }));
+    }
 
     return (
         <>
@@ -48,6 +52,15 @@ export default function TaskCard({ task }: CardProps) {
                     <CardTitle>{task.title}</CardTitle>
                     <CardDescription>{task.description}</CardDescription>
                 </DraggableContainer>
+                <FavoriteButton
+                    draggable={false}
+                    onClick={handleToggleFavorite}
+                >
+                    {task.favorite
+                        ? <span>⭐</span>
+                        : <span>☆</span>
+                    }
+                </FavoriteButton>
                 <EditCardButton
                     draggable={false}
                     onClick={handleEdit}
@@ -60,7 +73,6 @@ export default function TaskCard({ task }: CardProps) {
                 >
                     x
                 </RemoveCardButton>
-                {task.favorite && <span>⭐</span>}
             </CardContainer>
         </>
     );

@@ -85,6 +85,21 @@ export const EditCardButton = styled.button`
     z-index: 10;
 `;
 
+export const FavoriteButton = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    pointer-events: auto;
+    background: transparent;
+    z-index: 10;
+`;
+
 
 // Form components
 export const FormContainer = styled.form`
