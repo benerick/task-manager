@@ -4,6 +4,7 @@ import { editTask } from "@/store/tasks/taskSlice";
 import { isDuplicated } from "@/utils/tasksHelpers";
 import { EditModalProps } from "./types";
 import { ButtonGroup, ErrorText, ModalContainer, Overlay } from "./styles";
+import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidation";
 
 export default function EditTaskModal({ task, onClose }: EditModalProps) {
     const [title, setTitle] = useState<string>(task.title);
@@ -16,9 +17,15 @@ export default function EditTaskModal({ task, onClose }: EditModalProps) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        const error = validateTaskForm(title);
+        if (error) {
+            setError(error);
+            return;
+        }
+
         const isDuplicate = isDuplicated(columns, title, task.id);
         if (isDuplicate) {
-            setError("Ya existe una tarea con ese título.");
+            setError(DUPLICATED_TITLE_MESSAGE);
             return;
         }
 
