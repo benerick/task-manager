@@ -22,4 +22,6 @@ export interface TasksPerColumn {
 
 export interface TaskState {
     columns: Columns;
+    searchTerm: string;
+    statusFilter: TaskStatus | "all";
 };

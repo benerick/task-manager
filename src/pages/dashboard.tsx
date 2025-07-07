@@ -6,6 +6,7 @@ import TaskBoard from "@/components/dashboard/TaskBoard";
 import TaskForm from "@/components/dashboard/TaskForm";
 import { loadTasksFromStorage } from "@/utils/localStorage";
 import { setTasksState } from "@/store/tasks/taskSlice";
+import TaskFilters from "@/components/dashboard/TaskFilter";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -32,6 +33,7 @@ export default function DashboardPage() {
     return (
         <main>
             <h1>Tareas</h1>
+            <TaskFilters />
             <TaskForm />
             <TaskBoard />
         </main>

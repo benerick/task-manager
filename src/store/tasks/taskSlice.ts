@@ -16,6 +16,8 @@ const initialState: TaskState = {
             tasks: {},
         },
     },
+    searchTerm: "",
+    statusFilter: "all",
 };
 
 export const taskSlice = createSlice({
@@ -76,6 +78,12 @@ export const taskSlice = createSlice({
 
             task.favorite = !task.favorite;
         },
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload.toLowerCase();
+        },
+        setStatusFilter: (state, action: PayloadAction<TaskStatus | "all">) => {
+            state.statusFilter = action.payload;
+        }
     },
 });
 
@@ -86,6 +94,8 @@ export const {
     editTask,
     changeTaskStatus,
     toggleFavorite,
+    setSearchTerm,
+    setStatusFilter,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -184,3 +184,10 @@ export const ButtonGroup = styled.div`
   gap: 1rem;
   margin-top: 1rem;
 `;
+
+// Filtro de tareas
+export const FilterContainer = styled.div`
+    display: flex;
+    gap: 1rem;
+    marginBottom: 1rem;
+`;
