@@ -134,6 +134,24 @@ Desarrollado por Erick Benzo - 2025
 Proyecto de práctica para evaluación técnica
 
 ## Problemas 
-Problemas de hidratacion con styled-components y SSR de Next
-Solucion: En este caso hice el uso de una configuracion personalizada de babel en la cual se añade el plugin de styled-components con la opcion "ssr" true.
+Hidratación con styled-components y SSR en Next.js
+
+Al usar styled-components con Next.js, surgieron advertencias de hidratación debido a un desajuste entre los estilos generados en el servidor y en el cliente.
+
+Solución:
+Se configuró Babel para incluir el plugin styled-components con la opción ssr: true, lo cual soluciona los errores de hidratación en entornos SSR. En este proyecto se utilizó un archivo babel.config.js en lugar de .babelrc.
+
+```
+// babel.config.js
+module.exports = {
+    presets: [
+        ["@babel/preset-react", { runtime: "automatic" }],
+        "@babel/preset-env",
+        "@babel/preset-typescript",
+    ],
+    plugins: [
+        ["styled-components", { ssr: true }]
+    ]
+}
+```
 
