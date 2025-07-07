@@ -18,6 +18,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
+    "redux-mock-store": "^1.5.5",
     "styled-components": "^6.1.19",
     "ws": "^8.18.3"
   },
