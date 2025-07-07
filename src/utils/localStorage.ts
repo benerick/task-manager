@@ -3,6 +3,7 @@ import { compressData, decompressData } from "./compression";
 
 const STORAGE_PREFIX = "tasks__";
 
+// Guarda las tareas del usuario en localStorage, comprimidas para ocupar menos espacio.
 export function saveTasksToStorage(email: string, data: TaskState) {
     try {
         const key = `${STORAGE_PREFIX}${email}`;
@@ -12,6 +13,7 @@ export function saveTasksToStorage(email: string, data: TaskState) {
     }
 }
 
+// Carga y descomprime las tareas de un usuario desde localStorage.
 export function loadTasksFromStorage(email: string): TaskState | null {
     try {
         const key = `${STORAGE_PREFIX}${email}`;

@@ -5,6 +5,9 @@ import { Columns } from "@/store/tasks/types";
 let previousKey: CacheKey | null = null;
 let previousResult: Task[] = [];
 
+
+// Filtra tareas por estado, titulo de tarea y filtro de estado.
+// Usa una cache manual para evitar recalcular si las entradas son las mismas.
 export function getCachedFilteredTasks(
     status: TaskStatus,
     searchTerm: string,

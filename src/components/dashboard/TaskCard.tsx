@@ -11,18 +11,22 @@ export default function TaskCard({ task }: CardProps) {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: task.id })
 
     const [showModal, setShowModal] = useState<boolean>(false);
+
+    // Aplica la transformación de posición que devuelve dnd-kit (mueve la tarea al arrastrar)
     const style = {
         transform: transform
             ? `translate(${transform.x}px, ${transform.y}px)`
             : undefined,
     };
 
+    // Muestra el modal de edición y evita que el clic se propague a elementos padres
     const handleEdit = (evt: React.MouseEvent) => {
         evt.stopPropagation();
 
         setShowModal(true);
     };
 
+    // Confirma eliminación con el usuario y despacha acción para borrar la tarea
     const handleDelete = (evt: React.MouseEvent) => {
         evt.stopPropagation();
 
@@ -32,6 +36,7 @@ export default function TaskCard({ task }: CardProps) {
         dispatch(deleteTask(task));
     };
 
+    // Cambia el estado de favorito en la tarea
     const handleToggleFavorite = () => {
         dispatch(toggleFavorite({ id: task.id, status: task.status }));
     }

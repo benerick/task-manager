@@ -1,13 +1,10 @@
+import type { WSMessage, MessageHandler } from "./types";
+
 let socket: WebSocket | null = null;
 
-type WSMessage = {
-    id: string;
-    type: string;
-    payload?: any;
-};
 
-type MessageHandler = (message: WSMessage) => void;
-
+// Establece una conexión WebSocket con el servidor si aún no está abierta.
+// También configura los listeners para eventos del socket.
 export const connectSocket = (onMessage?: MessageHandler) => {
     if (socket && socket.readyState === WebSocket.OPEN) return socket;
 
@@ -38,6 +35,8 @@ export const connectSocket = (onMessage?: MessageHandler) => {
     return socket;
 };
 
+
+// Envía un mensaje a través del WebSocket si está abierto.
 export const sendMessage = (message: WSMessage) => {
     if (socket?.readyState === WebSocket.OPEN) {
         socket.send(JSON.stringify(message));

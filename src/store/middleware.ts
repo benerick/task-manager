@@ -2,7 +2,10 @@ import { Action, Middleware } from "@reduxjs/toolkit";
 import { saveTasksToStorage } from "@/utils/localStorage";
 import { sendMessage } from "@/websocket/socket";
 
-
+/**
+ * Middleware para mantener el estado de tareas en localStorage cada vez que
+ * se despacha una acción que afecta las tareas y hay un usuario autenticado.
+ */
 export const persistTasksMiddleware: Middleware = (storeAPI) => (next) => (action) => {
     const result = next(action);
     const act = action as Action;
@@ -16,6 +19,11 @@ export const persistTasksMiddleware: Middleware = (storeAPI) => (next) => (actio
     return result;
 }
 
+/**
+ * Middleware para sincronizar cambios en tareas vía WebSocket.
+ * Cada vez que se despachan acciones específicas relacionadas con tareas,
+ * se envía un mensaje con el estado actualizado.
+ */
 export const websocketMiddleware: Middleware = (storeAPI) => (next) => (action) => {
     const result = next(action);
     const act = action as Action;

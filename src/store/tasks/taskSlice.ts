@@ -24,19 +24,23 @@ export const taskSlice = createSlice({
     name: "tasks",
     initialState,
     reducers: {
+        // Reemplaza todo el estado de tareas (útil para sincronización o carga inicial)
         setTasksState: (_state, action: PayloadAction<TaskState>) => {
             return action.payload;
         },
+        // Agrega una tarea nueva en la columna correspondiente según su estado
         addTask: (state, action: PayloadAction<Task>) => {
             const task = action.payload;
             state.columns[task.status].tasks[task.id] = task;
 
         },
+        // Elimina una tarea dado su ID y estado
         deleteTask: (state, action: PayloadAction<Task>) => {
             const { status, id } = action.payload;
             delete state.columns[status].tasks[id];
 
         },
+        // Edita título y descripción de una tarea existente, actualizando la fecha de modificación
         editTask: (state, action: PayloadAction<{
             id: string,
             title: string,
@@ -52,6 +56,7 @@ export const taskSlice = createSlice({
                 task.lastModified = Date.now();
             }
         },
+        // Cambia el estado (columna) de una tarea y la mueve a la nueva columna
         changeTaskStatus: (
             state,
             action: PayloadAction<{
@@ -69,6 +74,7 @@ export const taskSlice = createSlice({
             state.columns[newStatus].tasks[id] = task;
 
         },
+        // Activa o desactiva el estado "favorito" de una tarea
         toggleFavorite: (
             state,
             action: PayloadAction<{
@@ -83,12 +89,15 @@ export const taskSlice = createSlice({
             task.favorite = !task.favorite;
 
         },
+        // Actualiza el término de búsqueda para filtrar tareas por título (convierte a minúsculas)
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload.toLowerCase();
         },
+        // Cambia el filtro de estado para mostrar tareas específicas o todas
         setStatusFilter: (state, action: PayloadAction<TaskStatus | "all">) => {
             state.statusFilter = action.payload;
         },
+        // Sincroniza el estado de tareas desde un broadcast externo (ej: WebSocket)
         syncTasksFromBroadcast: (state, action: PayloadAction<TaskState>) => {
             state.columns = action.payload.columns;
         },

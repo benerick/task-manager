@@ -15,6 +15,7 @@ const TaskBoard = () => {
     const dispatch = useAppDispatch();
     const { columns, searchTerm, statusFilter } = useAppSelector((state) => state.tasks);
 
+    // Se conecta al WebSocket una vez al montar el componente
     useEffect(() => {
         connectSocket((message) => {
             console.log(message);
@@ -24,7 +25,7 @@ const TaskBoard = () => {
         });
     }, []);
 
-
+    // Obtiene las tareas filtradas para una columna específica usando caché
     const getTasksForStatus = (status: TaskStatus): Task[] =>
         getCachedFilteredTasks(status, searchTerm, statusFilter, columns);
 

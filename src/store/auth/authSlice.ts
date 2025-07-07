@@ -50,11 +50,13 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
+        // Acción para cerrar sesión y limpiar estado + localStorage
         logout(state) {
             state.user = null;
             state.token = null;
             localStorage.removeItem("session");
         },
+        // Acción para restaurar sesión guardada (por ejemplo, al iniciar la app)
         restoreSession(state, action: PayloadAction<{ token: string; email: string }>) {
             state.user = action.payload.email;
             state.token = action.payload.token;
