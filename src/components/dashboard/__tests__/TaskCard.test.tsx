@@ -19,17 +19,17 @@ describe('TaskCard component', () => {
         return render(<Provider store={store}>{component}</Provider>);
     };
 
-    test('muestra titulo, descripcion y favorito', () => {
+    test('muestra titulo, descripcion', () => {
         renderWithProvider(<TaskCard task={task} />);
 
         expect(screen.getByText('Test tarea')).toBeInTheDocument();
         expect(screen.getByText('Descripción de prueba')).toBeInTheDocument();
-        expect(screen.getByText('⭐')).toBeInTheDocument();
+        expect(screen.getByLabelText('favorito')).toBeInTheDocument();
     });
 
     test('muestra tarea sin favorito', () => {
         const nonFavoriteTask = { ...task, favorite: false };
         renderWithProvider(<TaskCard task={nonFavoriteTask} />);
-        expect(screen.queryByText('⭐')).not.toBeInTheDocument();
+        expect(screen.getByLabelText('no-favorito')).toBeInTheDocument();
     });
 });

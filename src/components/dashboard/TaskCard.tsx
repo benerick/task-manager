@@ -64,9 +64,8 @@ export default function TaskCard({ task }: CardProps) {
                     onClick={handleToggleFavorite}
                 >
                     {task.favorite
-                        ? <FaStar color="gold" />
-                        : <FaRegStar />
-
+                        ? <span aria-label="favorito"><FaStar color="gold" /></span>
+                        : <span aria-label="no-favorito"><FaStar /></span>
                     }
                 </FavoriteButton>
                 <EditCardButton
