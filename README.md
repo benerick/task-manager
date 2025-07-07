@@ -84,27 +84,22 @@ Simulaciones de edición y creación de tareas con estado inicial.
 Cobertura de pruebas de componentes como LoginForm, TaskCard, y lógica de sincronización.
 
 ### Scripts
-npm run dev          # Inicia la app
-npm run build        # Compila para producción
-npm test             # Ejecuta los tests con Jest
-npx ts-node src/server/ws-server.ts  # Inicia el servidor WebSocket
+ - npm run dev          # Inicia la app
+ - npm run build        # Compila para producción
+ - npm test             # Ejecuta los tests con Jest
+ - npx ts-node src/server/ws-server.ts  # Inicia el servidor WebSocket
 
 ### Prueba - Ingreso al Sistema
 Para iniciar sesión en la aplicación, debes utilizar una cuenta válida proporcionada por el servicio de autenticación de pruebas Reqres.
 
-- Credenciales obligatorias
-Correo electrónico: eve.holt@reqres.in
+#### Pasos para ingresar
+- Ve a la página de inicio (/).
 
-Contraseña: cualquier valor (Reqres no valida la contraseña)
+- Ingresa el correo electrónico: eve.holt@reqres.in.
 
-- Pasos para ingresar
-Ve a la página de inicio (/).
+- Ingresa una contraseña cualquiera (por ejemplo: 123456).
 
-Ingresa el correo electrónico: eve.holt@reqres.in.
-
-Ingresa una contraseña cualquiera (por ejemplo: 123456).
-
-Haz clic en el botón Entrar.
+- Haz clic en el botón Entrar.
 
 Si los datos son correctos, serás redirigido automáticamente al tablero de tareas (Dashboard) donde podrás gestionar tus tareas.
 
@@ -113,6 +108,6 @@ Desarrollado por Erick Benzo - 2025
 Proyecto de práctica para evaluación técnica
 
 ## Problemas 
-- Problemas de hidratacion con styled-components y SSR de Next
+Problemas de hidratacion con styled-components y SSR de Next
 Solucion: En este caso hice el uso de una configuracion personalizada de babel en la cual se añade el plugin de styled-components con la opcion "ssr" true.
 
