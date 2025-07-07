@@ -70,6 +70,20 @@ export const RemoveCardButton = styled.button`
     z-index: 10;
 `;
 
+export const EditCardButton = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background: red;
+    pointer-events: auto;
+    z-index: 10;
+`;
 
 
 // Form components
@@ -113,4 +127,45 @@ export const Button = styled.button`
 export const ErrorText = styled.p`
   color: red;
   font-size: 0.9rem;
+`;
+
+
+// Modal de edicion
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+export const ModalContainer = styled.div`
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    margin-top: 0;
+  }
+
+  input, textarea {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
 `;

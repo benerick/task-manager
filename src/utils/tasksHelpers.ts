@@ -15,12 +15,13 @@ export function findColumnByTaskId(taskId: string, columns: Columns): TaskStatus
     return null;
 }
 
-export function isDuplicated(columns: Columns, title: string): boolean {
+export function isDuplicated(columns: Columns, title: string, excludeTaskId?: string): boolean {
     const normalizedTitle = title.trim().toLowerCase();
 
     return Object.values(columns).some((column) =>
-        Object.values(column.tasks).some((task) =>
-            task.title.trim().toLowerCase() === normalizedTitle
-        )
+        Object.values(column.tasks).some((task) => {
+            if (excludeTaskId && task.id === excludeTaskId) return false;
+            return task.title.trim().toLowerCase() === normalizedTitle
+        })
     )
 }

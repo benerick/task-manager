@@ -10,3 +10,8 @@ export interface ColumnProps {
 export interface CardProps {
     task: Task;
 };
+
+export interface EditModalProps {
+    task: Task;
+    onClose: () => void;
+};

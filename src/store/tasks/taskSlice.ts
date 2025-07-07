@@ -30,11 +30,18 @@ export const taskSlice = createSlice({
             const { status, id } = action.payload;
             delete state.columns[status].tasks[id];
         },
-        editTask: (state, action: PayloadAction<Task>) => {
-            const task = action.payload;
+        editTask: (state, action: PayloadAction<{
+            id: string,
+            title: string,
+            description: string,
+            status: TaskStatus,
+        }>) => {
+            const { id, status, title, description } = action.payload;
+            const task = state.columns[status].tasks[id]
             // Si existe, remplaza
-            if (state.columns[task.status].tasks[task.id]) {
-                state.columns[task.status].tasks[task.id] = task;
+            if (task) {
+                task.title = title;
+                task.description = description;
             }
         },
         changeTaskStatus: (
