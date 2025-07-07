@@ -9,7 +9,8 @@ import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidati
 export default function EditTaskModal({ task, onClose }: EditModalProps) {
     const [title, setTitle] = useState<string>(task.title);
     const [description, setDescription] = useState<string>(task.description || "");
-    const [error, setError] = useState("");
+    const [error, setError] = useState<string>("");
+    const [initialVersion, setInitialVersion] = useState<number>(task.lastModified);
 
     const dispatch = useAppDispatch();
     const columns = useAppSelector((state) => state.tasks.columns);
@@ -26,6 +27,14 @@ export default function EditTaskModal({ task, onClose }: EditModalProps) {
         const isDuplicate = isDuplicated(columns, title, task.id);
         if (isDuplicate) {
             setError(DUPLICATED_TITLE_MESSAGE);
+            return;
+        }
+
+        // Bloqueo optimista
+        const latestTask = columns[task.status].tasks[task.id];
+
+        if (latestTask.lastModified !== initialVersion) {
+            setError("La tarea fue modificada por otro usuario u otra pestaña.")
             return;
         }
 

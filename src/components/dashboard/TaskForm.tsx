@@ -40,6 +40,7 @@ export default function TaskForm() {
             favorite: false,
             createdAt: new Date().toISOString(),
             status,
+            lastModified: Date.now(),
         };
 
         dispatch(addTask(newTask));

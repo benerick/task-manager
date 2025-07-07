@@ -12,6 +12,7 @@ export interface Task {
     favorite: boolean;
     createdAt: string;
     status: TaskStatus;
+    lastModified: number;
 };
 
 

@@ -47,6 +47,7 @@ export const taskSlice = createSlice({
             if (task) {
                 task.title = title;
                 task.description = description;
+                task.lastModified = Date.now();
             }
         },
         changeTaskStatus: (
