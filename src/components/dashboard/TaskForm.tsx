@@ -1,9 +1,10 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+import { FaWindowClose } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { addTask } from "@/store/tasks/taskSlice";
 import { generateUniqueId, isDuplicated, refreshTaskTitleCache } from "@/utils/tasksHelpers";
 import { Task, TaskStatus } from "@/store/tasks/types";
-import { FormContainer, Input, Button, Select, ErrorText } from "./styles";
+import { FormContainer, Input, Button, Select, ErrorText, CloseButton } from "./styles";
 import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidation";
 
 export default function TaskForm() {
@@ -15,6 +16,7 @@ export default function TaskForm() {
     const [description, setDescription] = useState<string>("");
     const [status, setStatus] = useState<TaskStatus>("pending");
     const [error, setError] = useState("");
+    const [showForm, setShowForm] = useState(false);
 
     const handleSubmit = (evt: FormEvent) => {
         evt.preventDefault();
@@ -44,47 +46,64 @@ export default function TaskForm() {
         };
 
         dispatch(addTask(newTask));
+        handleFormClose();
+    }
 
+    const handleFormClose = () => {
         // Limpiar campos
         setTitle("");
         setDescription("");
         setError("");
+        setShowForm(false);
     }
 
     return (
-        <FormContainer onSubmit={handleSubmit}>
-            <Input
-                type="text"
-                placeholder="Titulo de la tarea"
-                value={title}
-                onChange={
-                    (evt: ChangeEvent<HTMLInputElement>) =>
-                        setTitle(evt.target.value)
-                }
-            />
-            <Input
-                type="text"
-                placeholder="Descripcion"
-                value={description}
-                onChange={
-                    (evt: ChangeEvent<HTMLInputElement>) =>
-                        setDescription(evt.target.value)
-                }
-            />
-            <Select
-                value={status}
-                onChange={
-                    (evt: ChangeEvent<HTMLSelectElement>) =>
-                        setStatus(evt.target.value as TaskStatus)
-                }
-            >
-                <option value="pending">Pendiente</option>
-                <option value="in_progress">En progreso</option>
-                <option value="completed">Completado</option>
-            </Select>
-            <Button type="submit">Crear tarea</Button>
-            {error && <ErrorText>{error}</ErrorText>}
-        </FormContainer>
+        <>
+            {showForm &&
+                <FormContainer onSubmit={handleSubmit}>
+                    <Input
+                        type="text"
+                        placeholder="Titulo de la tarea"
+                        value={title}
+                        onChange={
+                            (evt: ChangeEvent<HTMLInputElement>) =>
+                                setTitle(evt.target.value)
+                        }
+                    />
+                    <Input
+                        type="text"
+                        placeholder="Descripcion"
+                        value={description}
+                        onChange={
+                            (evt: ChangeEvent<HTMLInputElement>) =>
+                                setDescription(evt.target.value)
+                        }
+                    />
+                    <Select
+                        value={status}
+                        onChange={
+                            (evt: ChangeEvent<HTMLSelectElement>) =>
+                                setStatus(evt.target.value as TaskStatus)
+                        }
+                    >
+                        <option value="pending">Pendiente</option>
+                        <option value="in_progress">En progreso</option>
+                        <option value="completed">Completado</option>
+                    </Select>
+                    <Button type="submit">Crear tarea</Button>
+                    {error && <ErrorText>{error}</ErrorText>}
+                    <CloseButton
+                        onClick={handleFormClose}
+                    >
+                        <FaWindowClose />
+                    </CloseButton>
+                </FormContainer>
+            }
+            {!showForm &&
+                <Button onClick={() => setShowForm(true)}> + Nueva Tarea</Button>
+            }
+        </>
+
     );
 }
 

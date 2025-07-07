@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
+import { FaStar, FaRegStar, FaEdit, FaTrash } from "react-icons/fa";
 import { CardContainer, CardTitle, CardDescription, RemoveCardButton, DraggableContainer, EditCardButton, FavoriteButton } from "./styles";
 import { CardProps } from "./types";
 import { useAppDispatch } from "@/hooks";
@@ -8,7 +9,7 @@ import EditTaskModal from "./EditTaskModal";
 
 export default function TaskCard({ task }: CardProps) {
     const dispatch = useAppDispatch();
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: task.id })
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: task.id })
 
     const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -17,6 +18,7 @@ export default function TaskCard({ task }: CardProps) {
         transform: transform
             ? `translate(${transform.x}px, ${transform.y}px)`
             : undefined,
+        zIndex: isDragging ? 9999 : undefined,
     };
 
     // Muestra el modal de edición y evita que el clic se propague a elementos padres
@@ -62,21 +64,22 @@ export default function TaskCard({ task }: CardProps) {
                     onClick={handleToggleFavorite}
                 >
                     {task.favorite
-                        ? <span>⭐</span>
-                        : <span>☆</span>
+                        ? <FaStar color="gold" />
+                        : <FaRegStar />
+
                     }
                 </FavoriteButton>
                 <EditCardButton
                     draggable={false}
                     onClick={handleEdit}
                 >
-                    Edit
+                    <FaEdit />
                 </EditCardButton>
                 <RemoveCardButton
                     draggable={false}
                     onClick={handleDelete}
                 >
-                    x
+                    <FaTrash />
                 </RemoveCardButton>
             </CardContainer>
         </>

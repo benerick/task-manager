@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { editTask } from "@/store/tasks/taskSlice";
 import { isDuplicated } from "@/utils/tasksHelpers";
 import { EditModalProps } from "./types";
-import { ButtonGroup, ErrorText, ModalContainer, Overlay } from "./styles";
+import { Button, ButtonGroup, ErrorText, ModalContainer, Overlay } from "./styles";
 import { DUPLICATED_TITLE_MESSAGE, validateTaskForm } from "@/utils/formValidation";
 
 export default function EditTaskModal({ task, onClose }: EditModalProps) {
@@ -66,8 +66,8 @@ export default function EditTaskModal({ task, onClose }: EditModalProps) {
                     />
                     {error && <ErrorText>{error}</ErrorText>}
                     <ButtonGroup>
-                        <button type="submit">Guardar</button>
-                        <button type="button" onClick={onClose}>Cancelar</button>
+                        <Button type="submit">Guardar</Button>
+                        <Button type="button" onClick={onClose}>Cancelar</Button>
                     </ButtonGroup>
                 </form>
             </ModalContainer>

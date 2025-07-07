@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { decrypt } from "@/utils/cryptoHelpers";
@@ -7,6 +7,7 @@ import TaskForm from "@/components/dashboard/TaskForm";
 import { loadTasksFromStorage } from "@/utils/localStorage";
 import { setTasksState } from "@/store/tasks/taskSlice";
 import TaskFilters from "@/components/dashboard/TaskFilter";
+import { Header, Title } from "@/styles/styles";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -32,9 +33,12 @@ export default function DashboardPage() {
 
     return (
         <main>
-            <h1>Tareas</h1>
-            <TaskFilters />
-            <TaskForm />
+
+            <Header>
+                <Title>Tareas</Title>
+                <TaskForm />
+                <TaskFilters />
+            </Header>
             <TaskBoard />
         </main>
     )
