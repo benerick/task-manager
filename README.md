@@ -83,11 +83,37 @@ Simulaciones de edición y creación de tareas con estado inicial.
 
 Cobertura de pruebas de componentes como LoginForm, TaskCard, y lógica de sincronización.
 
-### Scripts
- - npm run dev          # Inicia la app
- - npm run build        # Compila para producción
- - npm test             # Ejecuta los tests con Jest
- - npx ts-node src/server/ws-server.ts  # Inicia el servidor WebSocket
+## Cómo empezar
+
+Sigue estos pasos para clonar el repositorio, instalar las dependencias y correr la app en desarrollo.
+
+### 1. Clona el repositorio
+
+```bash
+git clone https://github.com/benerick/task-manager.git
+cd task-manager
+```
+2. Instala las dependencias
+```
+npm install
+```
+4. Ejecuta los scripts
+Iniciar la app en desarrollo
+```
+npm run dev
+```
+Compilar para producción
+```
+npm run build
+```
+Ejecutar los tests con Jest
+```
+npm test
+```
+Iniciar el servidor WebSocket
+```
+npx ts-node src/server/ws-server.ts
+```
 
 ### Prueba - Ingreso al Sistema
 Para iniciar sesión en la aplicación, debes utilizar una cuenta válida proporcionada por el servicio de autenticación de pruebas Reqres.
