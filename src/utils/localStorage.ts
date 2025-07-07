@@ -1,12 +1,12 @@
 import { TaskState } from "@/store/tasks/types";
+import { compressData, decompressData } from "./compression";
 
 const STORAGE_PREFIX = "tasks__";
 
 export function saveTasksToStorage(email: string, data: TaskState) {
     try {
         const key = `${STORAGE_PREFIX}${email}`;
-        const json = JSON.stringify(data);
-        localStorage.setItem(key, json);
+        localStorage.setItem(key, compressData(data));
     } catch (e) {
         console.error("Error guardando tareas", e);
     }
@@ -17,7 +17,7 @@ export function loadTasksFromStorage(email: string): TaskState | null {
         const key = `${STORAGE_PREFIX}${email}`;
         const rawData = localStorage.getItem(key);
         if (!rawData) return null;
-        return JSON.parse(rawData) as TaskState;
+        return decompressData<TaskState>(rawData) as TaskState;
     } catch (e) {
         console.log("Error cargando tareas de usuario", e);
         return null;
