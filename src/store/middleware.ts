@@ -1,8 +1,9 @@
 import { Action, Middleware } from "@reduxjs/toolkit";
 import { saveTasksToStorage } from "@/utils/localStorage";
+import { sendMessage } from "@/websocket/socket";
 
 
-const persistTasksMiddleware: Middleware = (storeAPI) => (next) => (action) => {
+export const persistTasksMiddleware: Middleware = (storeAPI) => (next) => (action) => {
     const result = next(action);
     const act = action as Action;
     const user = storeAPI.getState().auth.user;
@@ -15,4 +16,26 @@ const persistTasksMiddleware: Middleware = (storeAPI) => (next) => (action) => {
     return result;
 }
 
-export default persistTasksMiddleware;
+export const websocketMiddleware: Middleware = (storeAPI) => (next) => (action) => {
+    const result = next(action);
+    const act = action as Action;
+
+    const SYNC_ACTIONS = [
+        "tasks/addTask",
+        "tasks/editTask",
+        "tasks/deleteTask",
+        "tasks/changeTaskStatus",
+        "tasks/toggleFavorite",
+    ];
+
+    if (SYNC_ACTIONS.includes(act.type)) {
+        const message = {
+            id: crypto.randomUUID(),
+            type: "UPDATE_TASKS",
+            payload: storeAPI.getState().tasks,
+        };
+        sendMessage(message);
+    }
+
+    return result;
+};

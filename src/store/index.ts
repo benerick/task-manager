@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReduce from "./auth/authSlice";
 import taskReduce from "./tasks/taskSlice";
-import persistTasksMiddleware from "./middleware";
+import { persistTasksMiddleware, websocketMiddleware } from "./middleware";
 
 
 export const store = configureStore({
@@ -10,7 +10,7 @@ export const store = configureStore({
         tasks: taskReduce,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(persistTasksMiddleware),
+        getDefaultMiddleware().concat(persistTasksMiddleware, websocketMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch

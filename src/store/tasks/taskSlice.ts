@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TaskStatus, TaskState, Task } from "./types";
+import { TaskStatus, TaskState, Task, Columns } from "./types";
 
 const initialState: TaskState = {
     columns: {
@@ -30,10 +30,12 @@ export const taskSlice = createSlice({
         addTask: (state, action: PayloadAction<Task>) => {
             const task = action.payload;
             state.columns[task.status].tasks[task.id] = task;
+
         },
         deleteTask: (state, action: PayloadAction<Task>) => {
             const { status, id } = action.payload;
             delete state.columns[status].tasks[id];
+
         },
         editTask: (state, action: PayloadAction<{
             id: string,
@@ -65,6 +67,7 @@ export const taskSlice = createSlice({
             delete (state.columns[currentStatus].tasks[id]);
             task.status = newStatus;
             state.columns[newStatus].tasks[id] = task;
+
         },
         toggleFavorite: (
             state,
@@ -78,13 +81,17 @@ export const taskSlice = createSlice({
             if (!task) return;
 
             task.favorite = !task.favorite;
+
         },
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload.toLowerCase();
         },
         setStatusFilter: (state, action: PayloadAction<TaskStatus | "all">) => {
             state.statusFilter = action.payload;
-        }
+        },
+        syncTasksFromBroadcast: (state, action: PayloadAction<TaskState>) => {
+            state.columns = action.payload.columns;
+        },
     },
 });
 
@@ -97,6 +104,7 @@ export const {
     toggleFavorite,
     setSearchTerm,
     setStatusFilter,
+    syncTasksFromBroadcast,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
